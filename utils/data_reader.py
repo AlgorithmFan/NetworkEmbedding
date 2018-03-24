@@ -11,6 +11,16 @@
 from scipy.io import loadmat
 
 
+class WalksCorpus(object):
+    def __init__(self, filename):
+        self.filename = filename
+
+    def __iter__(self):
+        with open(self.filename, 'r') as fp:
+            for line in fp:
+                yield line.strip().split('\t')
+
+
 class DataReader(object):
     def __init__(self):
         pass
@@ -21,16 +31,17 @@ class DataReader(object):
         data = loadmat(filename)
         return data[variable_name]
 
+    @staticmethod
+    def load_walks(filename):
+        ''' Load data from walks. '''
+        walks_corpus = WalksCorpus(filename)
+        return walks_corpus
 
     @staticmethod
     def load_edgelist(filename, is_directed=True):
         ''' Load data from .txt file. '''
         pass
 
-    @staticmethod
-    def load_walks(filename):
-        ''' Load walks from filename. '''
-        pass
 
 
 

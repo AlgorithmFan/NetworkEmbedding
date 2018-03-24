@@ -21,9 +21,17 @@ from gensim.models.word2vec import Vocab
 class Skipgram(Word2Vec):
     """ A subclass to allow more customization of the Word2Vec internals. """
     def __init__(self, vocabulary_counts=None, logger_name="", **kwargs):
+        '''
+        Initialization
+        -----------------------------------------------------
+        Parameters:
+            min_count: 对字典做阶段，少于min_count次数的单词会被丢弃，默认值为5.
+            size： 隐藏层的单元数，默认值为100，推荐值为几十到几百
+            workers： 控制训练并行， 默认是1，worker参数只有安装了Cython后才有效，没有的话，只能使用单核
+        '''
         logger = logging.getLogger(logger_name)
         self.vocabulary_counts = None
-        kwargs["min_count"] = kwargs.get("min_count", 0)
+        kwargs["min_count"] = kwargs.get("min_count", 5)
         kwargs["workers"] = kwargs.get("workers", cpu_count())
         kwargs["size"] = kwargs.get("size", 128)
         kwargs["sentences"] = kwargs.get("sentences", None)
@@ -33,4 +41,4 @@ class Skipgram(Word2Vec):
 
         if vocabulary_counts != None:
             self.vocabulary_counts = vocabulary_counts
-        Word2Vec.__init__(**kwargs)
+        Word2Vec.__init__(self, **kwargs)

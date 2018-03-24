@@ -14,3 +14,19 @@ class DataWriter(object):
     def __init__(self):
         pass
 
+    @staticmethod
+    def write_walks(filename, walks):
+        '''
+        Write walks into filename.
+        --------------------------------------
+        Parameters:
+            filename: walk file.
+                type: str
+            walks:
+                type: list()
+        '''
+        with open(filename, 'w') as fp:
+            for walk in walks:
+                for node in walk:
+                    fp.write('{}\t'.format(node))
+                fp.write('\n')

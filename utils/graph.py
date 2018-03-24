@@ -31,8 +31,6 @@ class Graph(defaultdict):
         if not is_directed:
             self.make_undirected()
 
-        self.make_consistent()
-
     def make_undirected(self):
         ''' transfer directed graph into undirected one. '''
         # remove weights
@@ -56,6 +54,13 @@ class Graph(defaultdict):
 
 if __name__ == '__main__':
     from data_reader import DataReader
+    from Sampler.random_walk import RandomWalk
 
     data = DataReader.load_matfile('../data/blogcatalog.mat', is_directed=True)
-    graph = Graph(data)
+    graph = Graph(data, is_directed=False)
+
+    random_walk = RandomWalk(num_paths=5, path_length=5, alpha=0.0)
+    walks = list(random_walk.generate(graph))
+    for walk in walks:
+        path = [str(i) for i in walk]
+        print ' - '.join(path)

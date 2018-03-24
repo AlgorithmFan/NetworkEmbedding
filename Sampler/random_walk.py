@@ -42,5 +42,12 @@ class RandomWalk:
                 yield self.sampler.generate(graph, self.path_length, self.alpha, start=node)
 
 
+    def generate_negative_samples(self):
+        '''
+        Generate negative samples.
+        ----------------------------------------------------------
+         Parameters:
+
+        '''
 
 

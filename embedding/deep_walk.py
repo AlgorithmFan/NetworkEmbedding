@@ -6,10 +6,11 @@
 @Contact: haidong_zhang13@163.com
 @License: (C) Copyright, 
 @Time    : 2018/3/22 11:05
-@Description: 
+@Description:
+@Reference: https://github.com/phanein/deepwalk
 """
 from network_embedding import NetworkEmbedding
-from Sampler.random_walk import RandomWalk
+from sampler.random_walk import RandomWalk
 from utils.skipgram import Skipgram
 from utils.data_writer import DataWriter
 

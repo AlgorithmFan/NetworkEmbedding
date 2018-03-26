@@ -15,12 +15,12 @@ class NegativeSampling:
     def __init__(self):
         pass
 
-    def generate(self, graph, path_length, alpha, start=None):
+    def generate(self, network, path_length, alpha, start=None):
         '''
         Generate random walks path.
         -------------------------------------------------
         Parameters:
-            graph:
+            network:
             path_length: the length of walks.
                 type: int
             alpha: threshold
@@ -34,13 +34,13 @@ class NegativeSampling:
         if start:
            path = [start]
         else:
-            path = [random.choice(list(graph.keys()))]
+            path = [random.choice(list(network.graph.keys()))]
 
         while len(path) < path_length:
             cur = path[-1]
-            if len(graph[cur]) > 0:
+            if len(network.graph[cur]) > 0:
                 if random.random() >= alpha:
-                    path.append(random.choice(graph[cur]))
+                    path.append(random.choice(network.graph[cur].keys()))
                 else:
                     path.append(path[0])
             else:

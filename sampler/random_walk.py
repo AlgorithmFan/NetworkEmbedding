@@ -25,22 +25,21 @@ class RandomWalk:
         else:
             raise Exception("Please choose a sampling method: NegativeSampling or AliasSampling.")
 
-    def generate(self, graph):
+    def generate(self, network):
         '''
         Generate random walks paths.
         -------------------------------------------------
         Parameters:
-            graph:
+            network:
         Returns:
 
         '''
-        nodes = graph.keys()
+        nodes = network.graph.keys()
 
         for index in range(self.num_paths):
             random.shuffle(nodes)
             for node in nodes:
-                yield self.sampler.generate(graph, self.path_length, self.alpha, start=node)
-
+                yield self.sampler.generate(network, self.path_length, self.alpha, start=node)
 
     def generate_negative_samples(self):
         '''

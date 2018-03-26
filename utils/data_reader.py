@@ -9,6 +9,7 @@
 @Description: 
 """
 from scipy.io import loadmat
+from scipy.sparse import issparse
 
 
 class WalksCorpus(object):
@@ -26,10 +27,18 @@ class DataReader(object):
         pass
 
     @staticmethod
-    def load_matfile(filename, variable_name="network", is_directed=True):
+    def load_matfile(filename, variable_name="network"):
         ''' Load data from .mat file.'''
         data = loadmat(filename)
-        return data[variable_name]
+        r_data = list()
+
+        if issparse(data[variable_name]):
+            c_data = data[variable_name].tocoo()
+            for i,j, w in zip(c_data.row, c_data.col, c_data.data):
+                r_data.append((i, j, w))
+        else:
+            raise Exception("Dense matrices not yet supported.")
+        return r_data
 
     @staticmethod
     def load_walks(filename):
@@ -41,6 +50,7 @@ class DataReader(object):
     def load_edgelist(filename, is_directed=True):
         ''' Load data from .txt file. '''
         pass
+
 
 
 
